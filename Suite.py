@@ -234,7 +234,7 @@ class Suite():
         request = requests.put(
             _config._editInventoryCell+_id,
             headers=_header,
-            json=_dict._setTrypsin()
+            json=_dict._setTrypsin(parse[0])
         )
         if request.status_code == 204:
             print("== Trypsin Registered ==")
