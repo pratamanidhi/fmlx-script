@@ -1,0 +1,40 @@
+import json
+from config import Config as _config
+from Suite import Suite as _suite
+import time
+import docker 
+
+if __name__ == "__main__":
+    # _dockerContainer = "suite-api_5051"
+    # _client = docker.from_env()
+
+
+    print("=== Sistem Login Started ===")
+    login = _suite._Login()
+    print("")
+    # _suite._reagentId(login)
+    print("=== Start Edit Cell Lines ===")
+    _suite._getInventoryCellLine(login)
+    print("")
+    print("=== Start Edit Empty Plate ===")
+    _suite._getInventoriesEmpPlate(login)
+    print("")
+   ## print("=== Start Edit Media ===")
+    _suite._getInventoryMedia(login)
+    print("")
+    print("=== Start Edit Trypsin ===")
+    _suite._getInventoryTrypsin(login)
+    print("")
+    print("=== Start Edit Empty Trough ===")
+    _suite._getInventoryEmpT(login)
+    print("")
+    print("=== Start Edit Tip Caddy ===")
+    _suite._getInventoryCaddy(login)
+
+    # time.sleep(600)
+    # print("")
+    # print("== Start Register Protocols ==")
+    # _suite._getCellLines(login)
+    # time.sleep(5)
+    # _client.restart(_dockerContainer)
+    ("=== Process Finish ===")

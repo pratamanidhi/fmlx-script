@@ -1,7 +1,7 @@
 {
-    "Url" : "https://ccs-dev.formulatrix.com",
+    "Url" : "http://cellmatic-1.local",
     "Port" : "5000",
-    "Protocol" : "Passaging",
+    "Protocol" : "Both",
     "UsedCell" : "HeLa",
     "UsedMedia" : "D-10",
     "UsedTrypsin" : "Trypsin",

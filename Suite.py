@@ -227,7 +227,7 @@ class Suite():
             headers = _header
         )
         for i in request_Trypsin.json():
-            if i["name"] == _config._mediaLine:
+            if i["name"] == _config._trypsinLine:
                 print("=== Trypsin Found !! ===")
                 id = i["id"]
                 parse.append(id)
@@ -285,11 +285,10 @@ class Suite():
                 print(f" Cell Line Barcode Found!!, Barcode : {i['barcode']}")
                 _id = i["id"]
                 parse.append(_id)
-        a.FeedingPassaging(parse)
+        a.FeedingPassaging(parse,_token)
     
-    def FeedingPassaging(self,_task):
+    def FeedingPassaging(self,_task,_token):
         a = Suite()
-        _token = a._Login()
         if _config._protocols == "Feeding":
             a._startFeeding(_token, _task[0])
         elif _config._protocols == "Passaging":
@@ -306,14 +305,24 @@ class Suite():
 
 
     def _startFeeding(self, _token, _id):
-        print("== Generating  Protocols ==")
+        print("== Generating Feeding Protocols ==")
+        parse = []
         _header = {
             "Authorization" : "Bearer "+_token
         }
+        request_media = requests.get(
+            _config._getReagentLine,
+            headers = _header
+        )
+        for i in request_media.json():
+            if i["name"] == _config._mediaLine:
+                print("=== Media Found !! ===")
+                id = i["id"]
+                parse.append(id)
         _request = requests.post(
             _config._createStocks,
             headers=_header,
-            json=_dict._feeding(_id)
+            json=_dict._feeding(_id,parse[0])
         )
         if _request.status_code == 201:
             print("== Stock Created ==")
@@ -322,13 +331,23 @@ class Suite():
 
     def _startPassaging(self, _token, _id):
         print(f"== Generating Passaging Protocols ==")
+        parse = []
         _header = {
             "Authorization" : "Bearer "+_token
         }
+        request_media = requests.get(
+            _config._getReagentLine,
+            headers = _header
+        )
+        for i in request_media.json():
+            if i["name"] == _config._mediaLine:
+                print("=== Media Found !! ===")
+                id = i["id"]
+                parse.append(id)
         _request = requests.post(
             _config._createStocks,
             headers=_header,
-            json=_dict._passaging(_id)
+            json=_dict._passaging(_id,parse[0])
         )
         print(_request.json())
         if _request.status_code == 201:
@@ -336,17 +355,3 @@ class Suite():
             return _request.status_code
         print("== Stock Failed ==")
     
-    def _getCellLine(_token):
-        parse = []
-        _header = {
-            "Authorization" : "Bearer "+_token
-        }
-        request = requests.get(
-            _config._getReagentLine,
-            headers = _header
-        )
-        for i in request.json():
-            if i["name"] == _config._mediaLine:
-                _id = i["id"]
-                parse.append(_id)
-        print(parse)

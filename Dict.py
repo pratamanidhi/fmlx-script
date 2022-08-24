@@ -118,7 +118,7 @@ class Dict():
         }
         return payload
 
-    def _feeding(_id):
+    def _feeding(_id, reagentId):
         payload = {
             "name": "TestFeeding",
             "quantity": 1,
@@ -134,7 +134,7 @@ class Dict():
                 "totalVolume": 10000,
                 "passageAfterConfluencyPercentage": 80,
                 "passageAfterTimeIntervalHour": None,
-                "mediaCultureReagentId": 8,
+                "mediaCultureReagentId": int(reagentId),
                 "mediaReplacementPercentage": 100,
                 "feedingIntervalHour": 1,
                 "enzymeCultureReagentId": 2,
@@ -147,7 +147,7 @@ class Dict():
         }
         return payload
 
-    def _passaging(_id):
+    def _passaging(_id,reagentId):
         payload = {
         "name": "TestPAssaging",
         "quantity": 1,
@@ -160,10 +160,10 @@ class Dict():
         "motionProfileId": 3,
         "cultureMethod": {
                 "isWashWithPbs": "false",
-                "totalVolume": 1500,
+                "totalVolume": 15000,
                 "passageAfterConfluencyPercentage": None,
                 "passageAfterTimeIntervalHour": 2,
-                "mediaCultureReagentId": 8,
+                "mediaCultureReagentId": int(reagentId),
                 "mediaReplacementPercentage": 100,
                 "feedingIntervalHour": 12,
                 "enzymeCultureReagentId": 3,
