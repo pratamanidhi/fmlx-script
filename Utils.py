@@ -1,7 +1,7 @@
 class Utils():
     def Initiate_Script():
         print("||||||||||||||||||||||||||||||||||||||||||||||")
-        print("||||||||||| SCRIPT RUNNING INITIATE ||||||||||")
+        print("||||||||||| INITIATE SCRIPT RUNNING ||||||||||")
         print("||||||||||||||||||||||||||||||||||||||||||||||")
         print("")
         

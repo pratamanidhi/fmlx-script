@@ -35,6 +35,12 @@ if __name__ == "__main__":
     print("=== Start Accelerate System ===")
     _suite._changeMultiplier(login)
     print("")
+    # while True:
+    #     status = _suite._getCellStatus(login)
+    #     if (status[0] == True) and (status[1] == True):
+    #         print("onDone finish")
+    #     break
+    # print("Put Protocols here")
 
     print("=== wait for 10 minutes ===")
     time.sleep(600)

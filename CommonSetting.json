@@ -1,5 +1,5 @@
 {
-    "Url" : "http://cellmatic-1.local",
+    "Url" : "https://ccs-dev.formulatrix.com",
     "Port" : "5000",
     "Protocol" : "Both",
     "UsedCell" : "HeLa",

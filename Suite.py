@@ -268,6 +268,26 @@ class Suite():
             print("== Tip Caddy Registered ==")
             return request.status_code
         print("== Tip Caddy Fail ==")
+    
+    def _getCellStatus(_token):
+        parse = []
+        _header = {
+            "Authorization" : "Bearer "+_token
+            }
+        request = requests.get(
+            _config._getInventories,
+            headers=_header,
+            params=_dict._inventorySize()
+        )
+        for i in request.json():
+            if search(_config._cellBarcode, i["barcode"]):
+                _status = i["status"]
+                _locations = i["currentLocation"]
+                if (_status == "Available") and search("Incubator", _locations):
+                    parse.append(True)
+                else:
+                    parse.append(False)
+        return parse
 
     def _getCellLines(_token):   
         _header = {
@@ -354,6 +374,7 @@ class Suite():
             print("== Stock Created ==")
             return _request.status_code
         print("== Stock Failed ==")
+        
     def _changeMultiplier(_token):
         _header = {
             "Authorization" : "Bearer "+_token
