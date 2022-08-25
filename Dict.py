@@ -175,3 +175,12 @@ class Dict():
             }
         }
         return payload
+    
+    def _setMultiplier(value):
+        payload = [
+            {
+                "key": "Application:Scheduler:TriggerTimeMultiplier",
+                "value": value
+            }
+        ]
+        return payload

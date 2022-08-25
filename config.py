@@ -20,3 +20,5 @@ class Config():
         _mediaBarcode = data["MediaBarcode"]
         _empPlateBarcode = data["EmptyPlateBarcode"]
         _empTroughBarcode = data["EmptyTroughBarcode"]
+        _setNewMultipler = _Url+"/api/configs"
+        _systemMultiplier = data["SystemMultiplier"]

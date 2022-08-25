@@ -354,4 +354,15 @@ class Suite():
             print("== Stock Created ==")
             return _request.status_code
         print("== Stock Failed ==")
-    
+    def _changeMultiplier(_token):
+        _header = {
+            "Authorization" : "Bearer "+_token
+        }
+        _request = requests.put(
+            _config._setNewMultipler,
+            headers = _header,
+            json=_dict._setMultiplier(str(_config._systemMultiplier))
+        )
+        if _request.status_code == 204:
+            print(f"=== System accelerate {str(_config._systemMultiplier)} times ===")
+        print("=== System Accelerate Failed ===")

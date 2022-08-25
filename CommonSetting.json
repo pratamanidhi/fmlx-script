@@ -9,5 +9,6 @@
     "TrypsinBarcode" : "TRY",
     "MediaBarcode" : "MED",
     "EmptyPlateBarcode" : "EMP",
-    "EmptyTroughBarcode" : "EMT"
+    "EmptyTroughBarcode" : "EMT",
+    "SystemMultiplier" : 10
 }
