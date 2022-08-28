@@ -21,9 +21,7 @@ class Suite():
 
 
     def _getInventoriesEmpPlate(_token):
-        _file = open("barcode.json")
-        _res = json.load(_file).get("Plate")
-        parse = []    
+        parse = []
         _header = {
             "Authorization" : "Bearer "+_token
             }
@@ -34,18 +32,14 @@ class Suite():
         )
         for i in request.json():
             barcode = i["barcode"]
-            for j in _res:
-                if barcode == j:
-                    if search(_config._empPlateBarcode,barcode):
-                        _id = i["id"]
-                        a = Suite()
-                        a._inventoryEditEmp(_token,str(_id))
+            if search(_config._empPlateBarcode,barcode):
+                _id = i["id"]
+                a = Suite()
+                a._inventoryEditEmp(_token,str(_id))
         return parse
 
     def _getInventoryCellLine(_token):
-        _file = open("barcode.json")
-        _res = json.load(_file).get("Plate")
-        parse = []    
+        parse = []
         _header = {
             "Authorization" : "Bearer "+_token
             }
@@ -56,18 +50,15 @@ class Suite():
         )
         for i in request.json():
             barcode = i["barcode"]
-            for j in _res:
-                if barcode == j:
-                    if search(_config._cellBarcode,barcode):
-                        _id = i["id"]
-                        a = Suite()
-                        a._inventoryCell(_token,str(_id))
+            if search(_config._cellBarcode,barcode):
+                _id = i["id"]
+                print(barcode)
+                a = Suite()
+                a._inventoryCell(_token,str(_id))
         return parse
-    
+
     def _getInventoryMedia(_token):
-        _file = open("barcode.json")
-        _res = json.load(_file).get("Plate")
-        parse = []    
+        parse = []
         _header = {
             "Authorization" : "Bearer "+_token
             }
@@ -78,18 +69,14 @@ class Suite():
         )
         for i in request.json():
             barcode = i["barcode"]
-            for j in _res:
-                if barcode == j:
-                    if search(_config._mediaBarcode,barcode):
-                        _id = i["id"]
-                        a = Suite()
-                        a._invetoryMedia(_token,str(_id))
+            if search(_config._mediaBarcode,barcode):
+                _id = i["id"]
+                a = Suite()
+                a._invetoryMedia(_token,str(_id))
         return parse
-    
+
     def _getInventoryTrypsin(_token):
-        _file = open("barcode.json")
-        _res = json.load(_file).get("Plate")
-        parse = []    
+        parse = []
         _header = {
             "Authorization" : "Bearer "+_token
             }
@@ -100,18 +87,14 @@ class Suite():
         )
         for i in request.json():
             barcode = i["barcode"]
-            for j in _res:
-                if barcode == j:
-                    if search(_config._trypsinBarcode,barcode):
-                        _id = i["id"]
-                        a = Suite()
-                        a._invetoryTrypsin(_token,str(_id))
+            if search(_config._trypsinBarcode,barcode):
+                _id = i["id"]
+                a = Suite()
+                a._invetoryTrypsin(_token,str(_id))
         return parse
 
     def _getInventoryEmpT(_token):
-        _file = open("barcode.json")
-        _res = json.load(_file).get("Plate")
-        parse = []    
+        parse = []
         _header = {
             "Authorization" : "Bearer "+_token
             }
@@ -122,18 +105,14 @@ class Suite():
         )
         for i in request.json():
             barcode = i["barcode"]
-            for j in _res:
-                if barcode == j:
-                    if search(_config._empTroughBarcode,barcode):
-                        _id = i["id"]
-                        a = Suite()
-                        a._invetoryEmpT(_token,str(_id))
+            if search(_config._empTroughBarcode,barcode):
+                _id = i["id"]
+                a = Suite()
+                a._invetoryEmpT(_token,str(_id))
         return parse
 
     def _getInventoryCaddy(_token):
-        _file = open("barcode.json")
-        _res = json.load(_file).get("Plate")
-        parse = []    
+        parse = []
         _header = {
             "Authorization" : "Bearer "+_token
             }
@@ -144,15 +123,13 @@ class Suite():
         )
         for i in request.json():
             barcode = i["barcode"]
-            for j in _res:
-                if barcode == j:
-                    a = Suite()
-                    if search("TIPC",barcode) and search("TIP", barcode):
-                        _id = i["id"]
-                        a._invetoryCaddy(_token,str(_id))
-                    if search("TIP", barcode):
-                        _id = i["id"]
-                        a._invetoryCaddy(_token, str(_id))
+            a = Suite()
+            if search("TIPC",barcode) and search("TIP", barcode):
+                _id = i["id"]
+                a._invetoryCaddy(_token,str(_id))
+            if search("TIP", barcode):
+                _id = i["id"]
+                a._invetoryCaddy(_token, str(_id))
         return parse
 
     def _inventoryEditEmp(self, _token,_id):
@@ -168,7 +145,7 @@ class Suite():
             print("== Empty Plate Registered ==")
             return request.status_code
         print("== Empty Plate Fail ==")
-    
+
     def _inventoryCell(self, _token,_id):
         parse = []
         _header = {
@@ -216,7 +193,7 @@ class Suite():
             print("== Media Registered ==")
             return request.status_code
         print("== Media Fail ==")
-    
+
     def _invetoryTrypsin(self, _token, _id):
         parse = []
         _header = {
@@ -268,7 +245,7 @@ class Suite():
             print("== Tip Caddy Registered ==")
             return request.status_code
         print("== Tip Caddy Fail ==")
-    
+
     def _getCellStatus(_token):
         parse = []
         _header = {
@@ -289,15 +266,15 @@ class Suite():
                     parse.append(False)
         return parse
 
-    def _getCellLines(_token):   
+    def _getCellLines(_token):
         _header = {
             "Authorization" : "Bearer "+_token
             }
         request = requests.get(
             _config._getInventories,
-            headers=_header
+            headers=_header,
+            params=_dict._inventorySize()
         )
-        cells = request.json()
         parse = []
         a = Suite()
         for i in request.json():
@@ -306,30 +283,42 @@ class Suite():
                 _id = i["id"]
                 parse.append(_id)
         a.FeedingPassaging(parse,_token)
-    
+
     def FeedingPassaging(self,_task,_token):
         a = Suite()
         if _config._protocols == "Feeding":
-            a._startFeeding(_token, _task[0])
+            for i in _task:
+                a._startFeeding(_token, i)
         elif _config._protocols == "Passaging":
-            a._startPassaging(_token, _task[0])
+            for i in _task:
+                a._startPassaging(_token, i)
         else:
             print("==== Initiate Feeding and Passagig Protocols ====")
-            _Plate1 = _task[0]
-            print("==== Feeding Protocols Start ====")
-            a._startFeeding(_token,_Plate1)
-            time.sleep(5)
-            _Plate2 = _task[1]
-            print("==== Passaging Protocols Start ====")
-            a._startPassaging(_token, _Plate2)
+            for i in _task:
+                if(i % 2) == 0:
+                    print("==== Feeding Protocols Start ====")
+                    a._startFeeding(_token,i)
+                else:
+                    print("==== Passaging Protocols Start ====")
+                    a._startPassaging(_token, i)
 
 
     def _startFeeding(self, _token, _id):
         print("== Generating Feeding Protocols ==")
         parse = []
+        cultureReagent = []
         _header = {
             "Authorization" : "Bearer "+_token
         }
+        request_try = requests.get(
+            _config._getReagentLine,
+            headers = _header
+        )
+        for j in request_try.json():
+            if j["name"] == _config._trypsinLine:
+                print("=== Trypsin Found !! ===")
+                id = j["id"]
+                cultureReagent.append(id)
         request_media = requests.get(
             _config._getReagentLine,
             headers = _header
@@ -342,7 +331,7 @@ class Suite():
         _request = requests.post(
             _config._createStocks,
             headers=_header,
-            json=_dict._feeding(_id,parse[0])
+            json=_dict._feeding(_id,parse[0],cultureReagent[0])
         )
         if _request.status_code == 201:
             print("== Stock Created ==")
@@ -352,29 +341,43 @@ class Suite():
     def _startPassaging(self, _token, _id):
         print(f"== Generating Passaging Protocols ==")
         parse = []
+        cultureReagent = []
         _header = {
             "Authorization" : "Bearer "+_token
         }
+        request_try = requests.get(
+            _config._getReagentLine,
+            headers = _header
+        )
+
+        for j in request_try.json():
+            if j["name"] == _config._trypsinLine:
+                print("=== Trypsin Found !! ===")
+                id = j["id"]
+                cultureReagent.append(id)
+
         request_media = requests.get(
             _config._getReagentLine,
             headers = _header
         )
+
         for i in request_media.json():
             if i["name"] == _config._mediaLine:
                 print("=== Media Found !! ===")
                 id = i["id"]
                 parse.append(id)
+
         _request = requests.post(
             _config._createStocks,
             headers=_header,
-            json=_dict._passaging(_id,parse[0])
+            json=_dict._passaging(_id,parse[0],cultureReagent[0])
         )
-        print(_request.json())
+
         if _request.status_code == 201:
             print("== Stock Created ==")
             return _request.status_code
         print("== Stock Failed ==")
-        
+
     def _changeMultiplier(_token):
         _header = {
             "Authorization" : "Bearer "+_token
@@ -386,4 +389,6 @@ class Suite():
         )
         if _request.status_code == 204:
             print(f"=== System accelerate {str(_config._systemMultiplier)} times ===")
-        print("=== System Accelerate Failed ===")
+        else:
+            print("== Failed to accelerate the system ==")
+

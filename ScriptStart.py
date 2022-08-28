@@ -4,6 +4,7 @@ from Suite import Suite as _suite
 import time
 from Utils import  Utils as _utils
 
+
 if __name__ == "__main__":
     _utils.Initiate_Script()
     print("------- Sistem Login Started -------")
@@ -35,15 +36,19 @@ if __name__ == "__main__":
     print("=== Start Accelerate System ===")
     _suite._changeMultiplier(login)
     print("")
-    # while True:
-    #     status = _suite._getCellStatus(login)
-    #     if (status[0] == True) and (status[1] == True):
-    #         print("onDone finish")
-    #     break
-    # print("Put Protocols here")
-
-    print("=== wait for 10 minutes ===")
-    time.sleep(600)
+    status = _suite._getCellStatus(login)
+    print(status)
+    while True:
+        login = _suite._Login()
+        status = _suite._getCellStatus(login)
+        if all(status) == True:
+            print("onDone finish")
+            break
+        else:
+            print("== Deliver in Progress ==")
+        time.sleep(10)
+    time.sleep(3)
+    print("====================================")
     print("------- Sistem Login Started -------")
     login = _suite._Login()
     print("")
